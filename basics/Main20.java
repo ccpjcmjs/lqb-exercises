@@ -1,5 +1,5 @@
 package basics;
-
+import java.util.Scanner;
 public class Main20 {
 /**		数的读法	（判断 函数）
  * 时间限制：1.0s   内存限制：512.0MB
@@ -22,12 +22,37 @@ public class Main20 {
 	1234567009
  * 样例输出
 	shi er yi san qian si bai wu shi liu wan qi qian ling jiu
- * 时间
- * 内存
+ * 时间	125ms	
+ * 内存	22.01MB
  * */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		Scanner sca = new Scanner(System.in);
+		String num[] = {"ling","yi","er","san","si","wu","liu","qi","ba","jiu"};
+		String wei[] = {"shi","bai","qian","wan","yi"};	
+		String str[] = new String[20];	//存储结果
+		int n = sca.nextInt();	//接收数值n
+		boolean l[] = new boolean[2] ;
+		int i=0,j=0,k;
+		while(n>0) {
+			k = n % 10;
+			n = n / 10;
+			if(k>0){
+				if(i>=4&&!l[i/4-1]) {	//默认l[]为false  当i为4，8的时候进入为 wan，yi
+					l[i/4-1] = true;  //第一次使l[0]为true 第二次使l[1]为true
+					str[j++] = wei[i/4+2];
+				}
+				if(i%4!=0) {
+					str[j++] = wei[i%4-1];		//传入数位
+				}
+				str[j++] = num[k];	//传入数值
+			}
+			else if(j>0&&str[j-1]!=num[0]) // k=0时 且最后一位不是0时加ling否则直接跳过 i++
+				str[j++] = num[0];
+			i++;
+		}
+		if(!(str[j-1]=="yi"&&j>1&&str[j-2]=="shi"))	//当 12这种情况读shi er而不是 yi shi er所以主要时出现这种情况时
+			System.out.print(str[j-1]+" ");	//倒序输出 最后一次j++为空 所以从j-1开始
+		for(int m=j-2;m>=0;m--)			
+			System.out.print(str[m]+" ");
 	}
-
 }
