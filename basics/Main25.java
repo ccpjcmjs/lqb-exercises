@@ -23,9 +23,9 @@ public class Main25 {
 	5 6
         样例输出
 	1 3 5 6 4 2
- * 时间
- * 内存
- * 
+ * 时间	515ms
+ * 内存 	49.89MB
+ *		解题思路 ：此题从上到下然后再向右向上向左 ，p，q，m，n为上左下右边界
  * */
 	public static void main(String[] args) {
 		Scanner sca = new Scanner(System.in);
@@ -35,32 +35,33 @@ public class Main25 {
 		for(int i=0;i<m;i++)	//输入m行n列矩阵
 			for(int j=0;j<n;j++)
 				arr[i][j] = sca.next();
-		int i=0,j=0,k=m-1,l=n-1; //左边界，上边界，下边界，右边界
+		int i=0,j=0,p=0,q=1;	
 		int t = m*n;
 		while(t>0) {
-			for(int i1=i;i1<m;i1++) {
-				System.out.print(arr[i1][j]+" ");
+			for(;i<m&&t>0;i++) {
+				System.out.print(arr[i][j]+" ");
 				t--;
 			}
-			i++;
-			j++;
-			for(int j1=j;j1<n;j1++) {
-				System.out.print(arr[k][j1]+" ");
+			i--;	//上面循环结束 i = m ，i--刚好到矩阵下界	
+			j++;		//j++避免重复输出角处的数
+			m--;		//下边界减一
+			for(;j<n&&t>0;j++) {
+				System.out.print(arr[i][j]+" ");
 				t--;
 			}
-			j++;
-			k--;
-			for(int k1=k;k1>=0;k1--) {
-				System.out.print(arr[k1][l]+" ");
+			j--;	// j--等于n-1
+		    i--;	
+		    n--;	//右边界减一
+			for(;i>p&&t>0;i--) {
+				System.out.print(arr[i][j]+" ");
 				t--;
 			}
-			k--;
-			l--;
-			for(int l1=l;l1>=i;l1--) {
-				System.out.print(arr[j][l1]+" ");
+			p++;	//上边界加一
+			for(;j>q&&t>0;j--) {
+				System.out.print(arr[i][j]+" ");
 				t--;
 			}
-			l--;
+			q++;	//左边界加一
 		}
 		
 	}
