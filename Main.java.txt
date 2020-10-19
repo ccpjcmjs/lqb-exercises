@@ -1,0 +1,44 @@
+package mylanqiao;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.TreeMap;
+
+public class Main {
+	public static TreeMap<Character,Integer> Pross(String str){
+		TreeMap<Character,Integer> tm = new TreeMap<Character,Integer>();
+		char[] c = str.toCharArray();
+		for(int i=0;i<c.length;i++)
+		{
+			if(!tm.containsKey(c[i])) {
+				tm.put(c[i], i);
+			}
+			else {
+				int count = tm.get(c[i])+1;
+				tm.put(c[i], count);
+			}	
+		}
+		return tm;
+	}
+
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		String str = in.nextLine();
+		ArrayList<String> al = new ArrayList<String>();
+		for(int i=0;i<str.length();i++) {
+			for(int j=i+1;j<=str.length();j++)
+			{
+				al.add(str.substring(i,j));
+			}
+		}
+		System.out.println(al);
+		int count=0;
+		for(int i=0;i<al.size();i++)
+		{
+			TreeMap<Character, Integer> tm = Pross(al.get(i));
+			System.out.print(al.get(i));
+			System.out.print(": "+tm.size()+"\n");
+			count+=tm.size();
+		}
+		System.out.println(count);
+	}
+}
